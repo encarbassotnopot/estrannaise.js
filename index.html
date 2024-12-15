@@ -71,21 +71,21 @@
             <div id="plot-region" class="centered-reflow"></div>
 
             <div id="options-container" class="centered-reflow">
-                <input id="fudge-factor" class="flat-input" value="1.0" title="Fudge factor">
-                <select id="dropdown-units" title="Change units for the estradiol concentration"></select>
-                <select id="dropdown-presets" title="Load a preset">
+                <input id="fudge-factor" class="flat-input neu-pop-in" value="1.0" title="Fudge factor">
+                <select id="dropdown-units" class="neu-pop-out" title="Change units for the estradiol concentration"></select>
+                <select id="dropdown-presets" class="neu-pop-out" title="Load a preset">
                     <option value="" selected disabled>select a preset</option>
                 </select>
-                <button id="menstrual-cycle-button" class="flat-button" title="Turn on/off the display of the menstrual cycle data">
+                <button id="menstrual-cycle-button" class="flat-button neu-pop-out" title="Turn on/off the display of the menstrual cycle data">
                     menstrual cycle
                 </button>
-                <button id="target-range-button" class="flat-button" title="Turn on/off the display of target mean estradiol range">
+                <button id="target-range-button" class="flat-button neu-pop-out" title="Turn on/off the display of target mean estradiol range">
                     target range
                 </button>
-                <button id="reset-button" class="flat-button" title="Clear local storage of custom doses and steady states">
+                <button id="reset-button" class="flat-button neu-pop-out" title="Clear local storage of custom doses and steady states">
                     reset
                 </button>
-                <button id="share-button" class="flat-button" title="Share the current state of the simulator as an arcane URL">
+                <button id="share-button" class="flat-button neu-pop-out" title="Share the current state of the simulator as an arcane URL">
                     share url
                 </button>
             </div>
@@ -105,11 +105,11 @@
                 </div>
                 <div id="customdose-buttons" class="centered-reflow">
                     <div>
-                        <button id="guess-button" class="flat-button" title="Duplicate last entry when in 'days as interval mode'. Guess and autofill next dose given the last two or three entries when in 'absolute days' mode">autofill</button>
-                        <button id="clear-doses-button" class="flat-button" title="Clear all entries of the custom dose curve">clear</button>
+                        <button id="guess-button" class="flat-button neu-pop-out" title="Duplicate last entry when in 'days as interval mode'. Guess and autofill next dose given the last two or three entries when in 'absolute days' mode">autofill</button>
+                        <button id="clear-doses-button" class="flat-button neu-pop-out" title="Clear all entries of the custom dose curve">clear</button>
                         <input type="file" id="csv-file" accept=".csv">
-                        <button id="import-csv-dialog" class="flat-button">import</button>
-                        <button id="export-csv-button" class="flat-button">export</button>
+                        <button id="import-csv-dialog" class="flat-button neu-pop-out">import</button>
+                        <button id="export-csv-button" class="flat-button neu-pop-out">export</button>
                     </div>
                 </div>
 
@@ -120,7 +120,7 @@
                                 <th title="Turn visibility of curve on/off">c</th>
                                 <th title="Turn visibility of uncertainty cloud on/off">u</th>
                                 <th>dose</th>
-                                <th><select id="dropdown-daysinput" title="Change the way days are interpreted as inputs in the custom curve">
+                                <th><select id="dropdown-daysinput" class="neu-pop-out" title="Change the way days are interpreted as inputs in the custom curve">
                                         <option value="intervals">interval</option>
                                         <option value="absolute">absolute</option>
                                         <option value="convert">convert abs&harr;int</option>
@@ -145,7 +145,7 @@
 
                 <div id="steadystate-buttons" class="centered-reflow">
                     <div>
-                        <button id="clear-steadystates-button" class="flat-button" title="Clear all steady-state entries">clear</button>
+                        <button id="clear-steadystates-button" class="flat-button neu-pop-out" title="Clear all steady-state entries">clear</button>
                     </div>
                 </div>
 

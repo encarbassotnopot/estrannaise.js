@@ -607,7 +607,7 @@ function guessNextRow(tableID) {
         if (beforeLastRow && lastRow) {
             // If in fact there are at least
             // 3 rows of data, we can try to guess
-            // staggered pattern and fill 
+            // staggered pattern and fill
             // A B A -> A B A B -> A B A B A
             // and interpolate time differences
             if (table.rows.length >= 5) {
@@ -655,6 +655,8 @@ function addDoseTimeModelRow(tableID, dose = null, time = null, model = null, cu
     let uncertaintyCell = row.insertCell(1);
     uncertaintyCell.className = 'uncertainty-cell';
 
+    let strongForegroundColor = getComputedStyle(document.documentElement).getPropertyValue('--strong-foreground');
+
     if (tableID == 'steadystate-table' || ((tableID == 'customdose-table') && (table.rows.length == 2))) {
 
         //////////////////////////
@@ -667,12 +669,14 @@ function addDoseTimeModelRow(tableID, dose = null, time = null, model = null, cu
         visibilityCell.appendChild(visibilityCheckboxState);
 
         let visibilityCustomCheckbox = document.createElement('div');
-        visibilityCustomCheckbox.className = 'custom-checkbox';
-
+        visibilityCustomCheckbox.classList.add('custom-checkbox', 'neu-pop-out');
+        
         if (tableID == 'customdose-table') {
             visibilityCustomCheckbox.style.backgroundColor = (visibilityCheckboxState.checked) ? wongPalette(4) : '';
+            // visibilityCustomCheckbox.style.setProperty('--main-color',wongPalette(4));
         } else if (tableID == 'steadystate-table') {
             visibilityCustomCheckbox.style.backgroundColor = (visibilityCheckboxState.checked) ? wongPalette(4 + row.rowIndex) : '';
+            // visibilityCustomCheckbox.style.setProperty('--main-color',wongPalette(4 + row.rowIndex));
         }
 
         visibilityCustomCheckbox.title = "Turn the visibility of the curve on/off";
@@ -697,12 +701,14 @@ function addDoseTimeModelRow(tableID, dose = null, time = null, model = null, cu
         uncertaintyCell.appendChild(uncertaintyCheckboxState);
 
         let uncertaintyCustomCheckbox = document.createElement('div');
-        uncertaintyCustomCheckbox.className = 'custom-checkbox';
-
+        uncertaintyCustomCheckbox.classList.add('custom-checkbox', 'neu-pop-out');
+        
         if (tableID == 'customdose-table') {
             uncertaintyCustomCheckbox.style.backgroundColor = (uncertaintyCheckboxState.checked) ? wongPalette(4) : '';
+            // uncertaintyCustomCheckbox.style.setProperty('--main-color', wongPalette(4));
         } else if (tableID == 'steadystate-table') {
             uncertaintyCustomCheckbox.style.backgroundColor = (uncertaintyCheckboxState.checked) ? wongPalette(4 + row.rowIndex) : '';
+            // uncertaintyCustomCheckbox.style.setProperty('--main-color', wongPalette(4 + row.rowIndex));
         }
 
         uncertaintyCustomCheckbox.title = 'Turn the visibility of the uncertainty cloud on/off';
@@ -723,7 +729,7 @@ function addDoseTimeModelRow(tableID, dose = null, time = null, model = null, cu
     //////////////////////////
     let doseCell = row.insertCell(2);
     let doseInput = document.createElement('input');
-    doseInput.classList.add('flat-input', 'dose-input');
+    doseInput.classList.add('flat-input', 'dose-input', 'neu-pop-in');
     doseInput.setAttribute('type', 'text');
     doseInput.type = 'number';
     doseInput.min = 0;
@@ -754,7 +760,7 @@ function addDoseTimeModelRow(tableID, dose = null, time = null, model = null, cu
     //////////////////////////
     let timeCell = row.insertCell(3);
     let timeInput = document.createElement('input');
-    timeInput.classList.add('flat-input')
+    timeInput.classList.add('flat-input', 'neu-pop-in');
     timeInput.setAttribute('type', 'text');
     timeInput.type = 'number';
 
@@ -793,7 +799,7 @@ function addDoseTimeModelRow(tableID, dose = null, time = null, model = null, cu
     //////////////////////////
     let modelCell = row.insertCell(4);
     let modelSelect = document.createElement('select');
-    modelSelect.classList.add('dropdown-model');
+    modelSelect.classList.add('dropdown-model', 'neu-pop-out');
 
     // Fill model dropdown with models
     Object.entries(modelList).forEach(([key, {units, description}]) => {
@@ -839,7 +845,7 @@ function addDoseTimeModelRow(tableID, dose = null, time = null, model = null, cu
     // if (tableID == 'steadystate-table' || (tableID == 'customdose-table' && table.rows.length > 2)) {
 
         let deleteButton = document.createElement('button');
-        deleteButton.classList.add('flat-button', 'delete-button');
+        deleteButton.classList.add('flat-button', 'delete-button', 'neu-pop-out');
         deleteButton.setAttribute('title', 'Delete this entry');
         deleteButton.textContent = '—';
 
@@ -916,7 +922,7 @@ function setDaysAsAbsolute(refreshPlot = true) {
 
     let timeInputs = document.querySelectorAll('.time-input-customdose');
     timeInputs.forEach(input => {
-        input.placeholder = 'since first';
+        input.placeholder = 'since 1st';
     });
 
     refreshPlot && (refresh(), saveToLocalStorage());
@@ -1234,6 +1240,10 @@ function setColorScheme(scheme, refreshAfter = true) {
         s.setProperty('--standout-background-color', rootStyle.getPropertyValue('--standout-background-color-night'));
         s.setProperty('--soft-foreground', rootStyle.getPropertyValue('--soft-foreground-night'));
         s.setProperty('--strong-foreground', rootStyle.getPropertyValue('--strong-foreground-night'));
+        
+        s.setProperty('--neumorphic-shadow', rootStyle.getPropertyValue('--soft-foreground') + '20');
+        s.setProperty('--neumorphic-light', 'black');
+        
         global_currentColorScheme = 'night';
 
         /* This is to make sure the switch is in the right state
@@ -1246,6 +1256,10 @@ function setColorScheme(scheme, refreshAfter = true) {
         s.setProperty('--standout-background-color', rootStyle.getPropertyValue('--standout-background-color-day'));
         s.setProperty('--soft-foreground', rootStyle.getPropertyValue('--soft-foreground-day'));
         s.setProperty('--strong-foreground', rootStyle.getPropertyValue('--strong-foreground-day'));
+
+        s.setProperty('--neumorphic-light', rootStyle.getPropertyValue('--strong-foreground'));
+        s.setProperty('--neumorphic-shadow', rootStyle.getPropertyValue('--background-color'));
+
         global_currentColorScheme = 'day';
         document.getElementById('nightday-state').checked = true;
     }
