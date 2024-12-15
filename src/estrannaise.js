@@ -227,6 +227,11 @@ function setupSteadyStateButtonsEvents() {
     clearSteadyStateButton.addEventListener('mouseup', () => {
         clearSteadyStateButton.classList.remove('button-on');
     });
+
+    clearSteadyStateButton.addEventListener('mouseleave', () => {
+        clearSteadyStateButton.classList.remove('button-on');
+    });
+
 }
 
 function setupCustomDoseButtonsEvents() {
@@ -257,6 +262,10 @@ function setupCustomDoseButtonsEvents() {
         guessButton.classList.remove('button-on');
     });
 
+    guessButton.addEventListener('mouseleave', () => {
+        guessButton.classList.remove('button-on');
+    });
+
     let clearDoseButton = document.getElementById('clear-doses-button');
 
     clearDoseButton.addEventListener('mousedown', (event) => {
@@ -267,8 +276,13 @@ function setupCustomDoseButtonsEvents() {
         refresh();
         saveToLocalStorage();
     });
+
     clearDoseButton.addEventListener('mouseup', (event) => {
         event.preventDefault();
+        clearDoseButton.classList.remove('button-on');
+    });
+
+    clearDoseButton.addEventListener('mouseleave', () => {
         clearDoseButton.classList.remove('button-on');
     });
 
@@ -279,7 +293,12 @@ function setupCustomDoseButtonsEvents() {
         exportCSVButton.classList.add('button-on');
         exportCSV();
     });
+
     exportCSVButton.addEventListener('mouseup', () => {
+        exportCSVButton.classList.remove('button-on');
+    });
+
+    exportCSVButton.addEventListener('mouseleave', () => {
         exportCSVButton.classList.remove('button-on');
     });
 
@@ -669,10 +688,17 @@ function addDoseTimeModelRow(tableID, dose = null, time = null, model = null, cu
         visibilityCell.appendChild(visibilityCheckboxState);
 
         let visibilityCustomCheckbox = document.createElement('div');
-        visibilityCustomCheckbox.classList.add('custom-checkbox', 'neu-pop-out');
+        // visibilityCustomCheckbox.classList.add('custom-checkbox', 'neu-pop-out');
         
         if (tableID == 'customdose-table') {
-            visibilityCustomCheckbox.style.backgroundColor = (visibilityCheckboxState.checked) ? wongPalette(4) : '';
+            if (visibilityCheckboxState.checked) {
+                visibilityCustomCheckbox.style.backgroundColor = wongPalette(4);
+                visibilityCustomCheckbox.classList.add('neu-pop-out');
+            } else {
+                visibilityCustomCheckbox.style.backgroundColor = '';
+                visibilityCustomCheckbox.classList.remove('neu-pop-out');
+            }
+            // visibilityCustomCheckbox.style.backgroundColor = (visibilityCheckboxState.checked) ? wongPalette(4) : '';
             // visibilityCustomCheckbox.style.setProperty('--main-color',wongPalette(4));
         } else if (tableID == 'steadystate-table') {
             visibilityCustomCheckbox.style.backgroundColor = (visibilityCheckboxState.checked) ? wongPalette(4 + row.rowIndex) : '';
@@ -850,6 +876,14 @@ function addDoseTimeModelRow(tableID, dose = null, time = null, model = null, cu
         deleteButton.textContent = '—';
 
         deleteCell.appendChild(deleteButton);
+
+        deleteButton.addEventListener('mousedown', function() {
+            deleteButton.classList.add('button-on');
+        });
+
+        deleteButton.addEventListener('mouseleave', function() {
+            deleteButton.classList.remove('button-on');
+        });
 
         deleteButton.addEventListener('click', function() {
             let myRow = this.parentNode.parentNode;
@@ -1241,8 +1275,8 @@ function setColorScheme(scheme, refreshAfter = true) {
         s.setProperty('--soft-foreground', rootStyle.getPropertyValue('--soft-foreground-night'));
         s.setProperty('--strong-foreground', rootStyle.getPropertyValue('--strong-foreground-night'));
         
-        s.setProperty('--neumorphic-shadow', rootStyle.getPropertyValue('--soft-foreground') + '20');
-        s.setProperty('--neumorphic-light', 'black');
+        s.setProperty('--neumorphic-shadow', 'black');
+        s.setProperty('--neumorphic-light', rootStyle.getPropertyValue('--soft-foreground') + '20');
         
         global_currentColorScheme = 'night';
 

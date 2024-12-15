@@ -19,7 +19,6 @@
 
     --neumorphic-light: var(--strong-foreground);
     --neumorphic-shadow: var(--soft-foreground);
-
 }
 
 @media (prefers-color-scheme: dark) {

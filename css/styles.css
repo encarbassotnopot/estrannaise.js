@@ -352,12 +352,6 @@ button.flat-button {
     color: var(--strong-foreground);
 }
 
-button.button-on {
-    font-weight: bold;
-    background-color: var(--soft-foreground);
-    color: var(--standout-background-color);
-}
-
 button.delete-button {
     appearance: none;
     padding-left: 0.8rem;
@@ -378,14 +372,19 @@ button.delete-button {
 }
 
 .neu-pop-in {
-    box-shadow: inset 0.08rem 0.08rem 0.2rem var(--neumorphic-light),
-                inset -0.2rem -0.2rem 0.2rem var(--neumorphic-shadow);
+    box-shadow: inset 0.08rem 0.08rem 0.2rem var(--neumorphic-shadow),
+                inset -0.2rem -0.2rem 0.2rem var(--neumorphic-light);
 }
 
 .neu-pop-out {
-    box-shadow: inset 0.08rem 0.08rem 0.2rem var(--neumorphic-shadow),
-                     -0.1rem -0.1rem 0.2rem var(--neumorphic-shadow),
-                      0.08rem 0.08rem 0.2rem var(--neumorphic-light);
+    box-shadow: inset 0.08rem 0.08rem 0.2rem var(--neumorphic-light),
+                     -0.1rem -0.1rem 0.2rem var(--neumorphic-light),
+                      0.08rem 0.08rem 0.2rem var(--neumorphic-shadow);
+}
+
+button.button-on {
+    font-weight: bold;
+    box-shadow: 0 0;
 }
 
 .visibility-cell .uncertainty-cell {
